@@ -86,7 +86,13 @@ module Guard
 
         @config.info "Using: #{s.server} as server"
 
-        thin = s.server == Rack::Handler::Thin
+        # If thin is not install, this will throw a LoadError
+        begin
+          thin = s.server == Rack::Handler::Thin
+        rescue LoadError
+          thin = nil
+        end
+
         Thin::Logging.silent = @config.rack_environment.nil? if thin
 
         @pid = Process.fork { s.start }
