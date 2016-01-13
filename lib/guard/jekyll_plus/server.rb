@@ -86,7 +86,7 @@ module Guard
 
         @config.info "Using: #{s.server} as server"
 
-        # If thin is not install, this will throw a LoadError
+        # If Thin is not installed, this will throw a LoadError
         begin
           thin = s.server == Rack::Handler::Thin
         rescue LoadError
